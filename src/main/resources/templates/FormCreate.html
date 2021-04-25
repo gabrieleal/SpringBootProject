@@ -28,18 +28,18 @@
 
 	<nav class="navbar navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" th:href="@{/}"> <img th:src="@{/img/icon.png}"
-				width="30" height="30" alt=""> Tienda VJ
+			<a class="navbar-brand" th:href="@{/}"> <img
+				th:src="@{/img/icon.png}" width="30" height="30" alt="">
+				Tienda VJ
 			</a>
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" th:href="@{/abm/create}">Nuevo VJ</a>
-				</li>
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" th:href="@{/abm/create}">Nuevo VJ</a></li>
 			</ul>
 			<form class="d-flex" th:action="@{/buscador}">
-				<input autofocus="autofocus" name="q" class="form-control me-2" type="search" th:placeholder="${param.q}"
-					aria-label="Search">
-				<button class="btn btn-outline-success" type="submit" >Search</button>
+				<input autofocus="autofocus" name="q" class="form-control me-2"
+					type="search" th:placeholder="${param.q}" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 		</div>
 	</nav>
@@ -51,21 +51,32 @@
 
 	<div class="container mt-4 vj-destacados">
 		<div class="row">
-			<div class="col-md-3 mb-4" th:each="juego : ${lista}">
-				<div class="card">
-					<img th:src="${juego.url}" src="" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title" th:text="${juego.nombre}"></h5>
-						<a
-							th:href="@{/videojuegosPorDistribuidor(id=${juego.distribuidor.id})}"><span
-							class="badge bg-warning text-dark"
-							th:text="${juego.distribuidor.nombre}"></span></a>
-						<p class="card-text" th:text="${juego.descripcion}"></p>
+			<div class="col-md-12 text-center">
+				<h1>Nuevo Videojuego</h1>
+				<form method="post" th:action="@{/abm/save}" th:object="${videojuego}">
+					<div class="mb-3">
+						<label for="nombre" class="form-label">Nombre </label> 
+						<input th:field="*{nombre}"
+							type="text" class="form-control" id="nombre" name="nombre"
+							aria-describedby="nombre">
 					</div>
-					<div class="card-footer text-muted">
-						<a href="#" class="btn btn-primary">Ver detalles</a>
+					<div class="mb-3">
+						<label for="Descripcion" class="form-label">Descripción</label>
+						<textarea type="text" th:field="*{descripcion}" class="form-control" name="desc"
+							id="Descripcion"></textarea>
 					</div>
-				</div>
+					<div class="mb-3">
+						<label class="form-label">Distribuidor &nbsp;&nbsp;</label>
+						<select class="form-select" name=distribuidor aria-label="Default select example" th:field="*{distribuidor}" >
+							<option th:each="dist : ${dist}" th:value="${dist.id}" th:text="${dist.nombre}"></option>
+						</select>
+					</div>
+					<div class="mb-3">
+						<label for="url" class="form-label">Url de imagen</label> <input
+							th:field="*{url}" type="url" class="form-control" name="url" id="url" />
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
 			</div>
 		</div>
 	</div>

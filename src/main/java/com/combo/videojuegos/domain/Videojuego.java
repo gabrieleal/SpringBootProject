@@ -12,11 +12,22 @@ import javax.persistence.Table;
 public class Videojuego {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String nombre, descripcion, url;
 	
+	public Videojuego() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Videojuego(String nombre, String descripcion, String url, Distribuidor distribuidor) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.url = url;
+		this.distribuidor = distribuidor;
+	}
+
 	@ManyToOne
 	private Distribuidor distribuidor;
 
@@ -58,6 +69,12 @@ public class Videojuego {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Videojuego [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", url=" + url
+				+ ", distribuidor=" + distribuidor + "]";
 	}
 	
 	

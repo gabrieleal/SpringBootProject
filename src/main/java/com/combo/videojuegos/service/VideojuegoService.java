@@ -1,6 +1,5 @@
 package com.combo.videojuegos.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,20 @@ public class VideojuegoService {
 
 	@Autowired
 	private VideojuegoRepository repo;
-
+	
+	public void save(Videojuego video) {
+		repo.save(video);
+	}
 	public List<Videojuego> buscarDestacados() {
-		return repo.findAll();
+		return repo.buscarTodos();
+	}
+	
+	public List<Videojuego> Buscar_por_Distribuidores(int iddistribuidor){
+		return repo.BuscarporProveedor(iddistribuidor);
+	}
+	
+	public List<Videojuego> Buscar(String buscar){
+		return repo.findByNombreContaining(buscar);
 	}
 
 }
